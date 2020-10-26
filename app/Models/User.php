@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function timeline() {
+        return Tweet::where('user_id', $this->id)->latest()->get();
+    }
+
+    public function getAvatarAttribute() {
+        return "https://robohash.org/". $this->email;
+    }
 }
