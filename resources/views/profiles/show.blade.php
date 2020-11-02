@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app>
     <header class="mb-6 relative">
         <img class="mb-2 rounded" src="https://picsum.photos/seed/{{ $user->email }}/700/250" alt="User banner">
 
@@ -29,4 +27,4 @@
     @include('_timeline', [
         'tweets' => $user->tweets
     ])
-@endsection
+</x-app>
