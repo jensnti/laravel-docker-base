@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Followable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Followable;
 
     /**
      * The attributes that are mass assignable.
@@ -52,18 +53,15 @@ class User extends Authenticatable
     }
 
     public function tweets() {
-        return $this->hasMany(Tweet::class);
-    }
-
-    public function follow(User $user) {
-        return  $this->follows()->save($user);
-    }
-
-    public function follows() {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
+        return $this->hasMany(Tweet::class)->latest();
     }
 
     public function getAvatarAttribute() {
         return "https://robohash.org/". $this->email;
+    }
+
+    public function path()
+    {
+        return route('profile', $this->name);
     }
 }
