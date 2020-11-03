@@ -1,5 +1,5 @@
 <x-app>
-    <form action="{{ $user->path() }}" method="post">
+    <form action="{{ $user->path() }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 
@@ -11,6 +11,7 @@
                 id="name"
                 type="text"
                 name="name"
+                value="{{ $user->name }}"
                 required
             >
 
@@ -27,9 +28,27 @@
                 id="username"
                 type="text"
                 name="username"
+                value="{{ $user->username }}"
                 required
             >
 
+            @error('username')
+                <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="mb-6">
+            <label for="avatar" class="block mb-2 uppercase font-bold text-xs text-gray-700">Avatar</label>
+            <div clasS="flex">
+                <input
+                    class="border border-gray-400 p-2 w-full"
+                    id="avatar"
+                    type="file"
+                    name="avatar"
+                >
+
+                <img src="{{ $user->avatar }}" alt="You" width="40">
+            </div>
             @error('username')
                 <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
             @enderror
@@ -43,6 +62,7 @@
                 id="email"
                 type="email"
                 name="email"
+                value="{{ $user->email }}"
                 required
             >
 
@@ -59,7 +79,6 @@
                 id="password"
                 type="password"
                 name="password"
-                required
             >
 
             @error('password')
@@ -75,7 +94,6 @@
                 id="password_confirmation"
                 type="password"
                 name="password_confirmation"
-                required
             >
 
             @error('password_confirmation')

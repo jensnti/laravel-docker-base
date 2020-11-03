@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'name',
+        'avatar',
         'email',
         'password',
     ];
@@ -57,8 +58,9 @@ class User extends Authenticatable
         return $this->hasMany(Tweet::class)->latest();
     }
 
-    public function getAvatarAttribute() {
-        return "https://robohash.org/". $this->email;
+    public function getAvatarAttribute($value) {
+        // return "https://robohash.org/". $this->email;
+        return asset('storage/' . $value);
     }
 
     public function path($append = '')
@@ -66,4 +68,6 @@ class User extends Authenticatable
         $path = route('profile', $this->username);
         return $append ? "{$path}/{$append}" : $path;
     }
+
+    public function setPasswordAttribute($value) { $this->attributes['password'] = bcrypt($value); }
 }
