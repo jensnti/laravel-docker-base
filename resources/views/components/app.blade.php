@@ -5,7 +5,7 @@
                 @auth
                     <div class="lg:w-32">
                         @include ('_sidebar-links')
-                    </div>¨
+                    </div>
                 @endauth
                 <div class="lg:flex-1 lg:mx-10" style="max-width: 700px;">
                    {{ $slot }}
