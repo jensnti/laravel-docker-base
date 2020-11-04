@@ -35,3 +35,7 @@ Viktigt med passwd
         $this->attributes['password'] = bcrypt($value);
     }
 ```
+
+```sql
+select tweet_id, sum(liked) likes, sum(!liked) dislikes from likes group by tweet_id;
+```
