@@ -60,7 +60,11 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value) {
         // return "https://robohash.org/". $this->email;
-        return asset('storage/' . $value);
+        if($value) {
+            return asset('storage/' . $value); //          ?: 'https://robohash.org/' . $this->username);
+        } else {
+            return "https://robohash.org/". $this->username;
+        }
     }
 
     public function path($append = '')
@@ -69,5 +73,8 @@ class User extends Authenticatable
         return $append ? "{$path}/{$append}" : $path;
     }
 
-    public function setPasswordAttribute($value) { $this->attributes['password'] = bcrypt($value); }
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }
