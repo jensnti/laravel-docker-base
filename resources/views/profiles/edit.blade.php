@@ -79,6 +79,7 @@
                 id="password"
                 type="password"
                 name="password"
+                required
             >
 
             @error('password')
@@ -94,6 +95,7 @@
                 id="password_confirmation"
                 type="password"
                 name="password_confirmation"
+                required
             >
 
             @error('password_confirmation')
@@ -104,9 +106,11 @@
         <div class="mb-6">
             <button
                 type="submit"
-                class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
+                class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500 mr-4">
                 Submit
             </button>
+
+            <a class="hover:underline" href="{{ $user->path() }}">Cancel</a>
         </div>
     </form>
 </x-app>

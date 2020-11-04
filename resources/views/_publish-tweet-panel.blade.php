@@ -7,18 +7,19 @@
             id="body"
             cols="30"
             placeholder="What's up doc?"
-            required></textarea>
+            required
+            autofocus></textarea>
 
         <hr class="my-4">
 
-        <footer class="flex justify-between">
+        <footer class="flex justify-between items-center">
             <img
                 class="rounded-full mr-2"
                 src="{{ auth()->user()->avatar }}"
                 alt="avatar"
                 style="width: 40px; height: 40px;">
             <button
-                class="bg-blue-500 rounded-lg shadow py-2 px-2 text-white"
+                class="bg-blue-500 hover:bg-blue-600 rounded-lg shadow py-2 px-10 text-sm text-white"
                 type="submit">Tweet</button>
         </footer>
     </form>

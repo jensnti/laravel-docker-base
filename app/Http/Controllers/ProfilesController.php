@@ -11,7 +11,10 @@ class ProfilesController extends Controller
     //
     public function show(User $user)
     {
-        return view('profiles.show', compact('user'));
+        return view('profiles.show', [
+            'user' => $user,
+            'tweets' => $user->tweets()->paginate(20)
+        ]);
     }
 
     public function update(User $user)
@@ -21,16 +24,13 @@ class ProfilesController extends Controller
             'name' => ['string', 'required', 'max:255'],
             'avatar' => ['image'],
             'email' => ['string', 'required', 'email', 'max:255', Rule::unique('users')->ignore($user)],
-            'password' => ['nullable', 'string', 'min:8', 'max:255', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
         ]);
 
         if (request('avatar')) {
             $attributes['avatar'] = request('avatar')->store('avatars');
         }
 
-        if ($attributes['password'] == '') {
-            $attributes['password'] = $user->password;
-        }
         $user->update($attributes);
         return redirect($user->path());
     }
